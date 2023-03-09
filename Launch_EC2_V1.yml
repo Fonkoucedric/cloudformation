@@ -1,0 +1,15 @@
+# launch an EC2 in a default VPC in us-west 1 region , tag the EC2 with MY name "Cedric" 
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  EC2Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: ami-0c55b159cbfafe1f0 # Amazon Linux 2 AMI (HVM), SSD Volume Type
+      InstanceType: t2.micro
+      Tags:
+        - Key: Name
+          Value: Cedric
+    # Use the default VPC in us-west-1 region
+    SubnetId: !ImportValue 'DefaultVPC/Subnet/PublicSubnet1'
+    SecurityGroupIds:
+      - !ImportValue 'DefaultVPC/SecurityGroup/SSHAccess'
